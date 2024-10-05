@@ -1,84 +1,107 @@
 // Function getComputerChoice() randomly returns rock, paper, or scissors
 function getComputerChoice() {
-    let computerChoice = (Math.floor((Math.random() * 100) +1))
+    let randomNumber = (Math.floor((Math.random() * 100) +1))
 
-    if (computerChoice <= 33) {
-        return "rock";
-    } else if (computerChoice > 33 && computerChoice <= 66) {
-        return "paper";
+    if (randomNumber <= 33) {
+        return computerChoice = "rock";
+    } else if (randomNumber > 33 && randomNumber <= 66) {
+        return computerChoice = "paper";
     } else {
-        return "scissors";
+        return computerChoice = "scissors";
     }
 }
 
-// Function getHumanChoice() takes user choice and returns it
-function getHumanChoice() {
-    let humanChoice = prompt("What do you choose: Rock, Paper or Scissors?").toLowerCase();
-    return humanChoice;
-}
+// assigns button elements to a JS variable
+const buttons = document.querySelectorAll(".btn");
 
-// Variables to keep track of the players score
+// Assigns variables to the scores
 let humanScore = 0;
 let computerScore = 0;
 let ties = 0;
-let invalids = 0;
+let roundsPlayed = 0;
+const maxRounds = 5;
 
-// Function playGame() calls playRound() to play 5 rounds, keeps track of the scores, and declares a winner at the end
-function playGame() {
-    let i = 0;
-    for (let i = 0; i < 5; i++) {
-        // Function playRound() takes the human and computer choices as arguments, plays a single round, increments the round winner's score and logs a winner announcement
-        function playRound(computerChoice, humanChoice) {
-            if (computerChoice === humanChoice) {  
-                ties++
-                return "Tie"
-            } else if (computerChoice === "rock") {
-                if (humanChoice === "paper") {
-                    humanScore++
-                    return "Human wins";
-                } else if (humanChoice === "scissors") {
-                    computerScore++
-                    return "Computer wins";
-                } else {
-                    invalids++
-                    return "Invalid option, try again"
-                }
-            } else if (computerChoice === "paper") {
-                if (humanChoice === "scissors") {
-                    humanScore++
-                    return "Human wins";
-                } else if (humanChoice === "rock") {
-                    computerScore++
-                    return "Computer wins";
-                } else {
-                    invalids++
-                    return "Invalid option, try again"
-                }
-            } else {
-                if (humanChoice === "rock") {
-                    humanScore++
-                    return "Human wins";
-                } else if (humanChoice === "paper") {
-                    computerScore++
-                    return "Computer wins";
-                } else {
-                    invalids++
-                    return "Invalid option, try again"
-                }
-            }
+// adds event listener and runs function that gets computer choice, human choice, and plays a round
+
+buttons.forEach((btn) => {
+    btn.addEventListener("click", function() {
+        if (roundsPlayed < maxRounds) {
+            let computerChoice = getComputerChoice();
+            let humanChoice = btn.id;
+            playRound(computerChoice, humanChoice);
+        } else {
+            alert("No more rounds! Please restart the game.");
         }
+    });
+});
 
-        const computerChoice = getComputerChoice();
-        const humanChoice = getHumanChoice();
-        const result = playRound(computerChoice, humanChoice);
+// takes the human and computer choices as arguments, plays a single round, increments the round winner's score and logs a winner announcement
+function playRound(computerChoice, humanChoice) {
+    roundsPlayed++;
 
-        console.log("The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: " + result);
-
+    if (computerChoice === humanChoice) {  
+        ties++
+        resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Tie"
+    } else if (computerChoice === "rock") {
+        if (humanChoice === "paper") {
+            humanScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+        } else if (humanChoice === "scissors") {
+            computerScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+        } 
+    } else if (computerChoice === "paper") {
+        if (humanChoice === "scissors") {
+            humanScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+        } else if (humanChoice === "rock") {
+            computerScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+        }
+    } else {
+        if (humanChoice === "rock") {
+            humanScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+        } else if (humanChoice === "paper") {
+            computerScore++
+            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+        }
     }
-}
 
-playGame();
+    // Updates results list
+    const resultsList = document.getElementById("results-list");
+    resultsList.appendChild(document.createElement("li"));
+    let resultItem = resultsList.lastChild;
+    resultItem.textContent = resultText;
+    
+    document.getElementById("human-score").textContent = `Human score: ${humanScore}`; // Updates scores for human
+    document.getElementById("computer-score").textContent = `Computer score: ${computerScore}`; // Updates scores for computer
+    const tiesPara = document.getElementById("tie").textContent = `Ties: ${ties}`; // Updates scores for ties
 
-console.log("The final human score is: " + humanScore);
-console.log("The final computer score is: " + computerScore);
-console.log("The total number of ties and/or invalid options was: " + (ties + invalids));
+    // Check if the maximum rounds have been played
+    if (roundsPlayed === maxRounds) {
+        setTimeout(() => {
+            alert(`Game over! Final scores - Human: ${humanScore}, Computer: ${computerScore}, Ties: ${ties}`);
+        }, 100);
+    };
+};
+
+// Reset game function
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    ties = 0;
+    roundsPlayed = 0;
+
+    // Clear results list
+    const resultsList = document.getElementById("results-list");
+    resultsList.textContent = "";
+
+    // Update scores display
+    document.getElementById("human-score").textContent = `Human score: ${humanScore}`;
+    document.getElementById("computer-score").textContent = `Computer score: ${computerScore}`;
+    document.getElementById("tie").textContent = `Ties: ${ties}`;
+};
+
+const resetBtn = document.getElementById("reset-btn");
+resetBtn.addEventListener("click", resetGame);

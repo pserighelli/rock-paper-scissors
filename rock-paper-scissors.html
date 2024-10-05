@@ -4,10 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors</title>
-    <script src="rock-paper-scissors.js"></script>
 </head>
 <body>
     <h1>Rock, Paper, Scissors</h1>
-    <p>This game is meant to be played on the console. If you're using Chrome, press Option + ⌘ + J (on macOS) or Shift + CTRL + J (on Windows/Linux).</p>
+    <p>Choose one of the following options:</p>
+    <div id="buttons">
+        <button class="btn" id="rock">Rock</button>
+        <button class="btn" id="paper">Paper</button>
+        <button class="btn" id="scissors">Scissors</button>
+    </div>
+    <div id="results">
+        <p>The result is:</p>
+        <ol id="results-list">
+        </ol>
+    </div>
+
+    <div id="scores">
+        <p id="human-score"></p>
+        <p id="computer-score"></p>
+        <p id="tie"></p>
+    </div>
+
+    <button id="reset-btn">Reset game</button>
+
+    <script src="rock-paper-scissors.js"></script>
 </body>
 </html>
