@@ -1,3 +1,5 @@
+document.getElementById("reset-btn").style.display = "none";
+
 // Function getComputerChoice() randomly returns rock, paper, or scissors
 function getComputerChoice() {
     let randomNumber = (Math.floor((Math.random() * 100) +1))
@@ -9,10 +11,7 @@ function getComputerChoice() {
     } else {
         return computerChoice = "scissors";
     }
-}
-
-// assigns button elements to a JS variable
-const buttons = document.querySelectorAll(".btn");
+};
 
 // Assigns variables to the scores
 let humanScore = 0;
@@ -21,14 +20,34 @@ let ties = 0;
 let roundsPlayed = 0;
 const maxRounds = 5;
 
+// assigns human choice button elements to a JS variable
+const buttons = document.querySelectorAll(".btn");
+
 // adds event listener and runs function that gets computer choice, human choice, and plays a round
+let isThrottled = false;
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", function() {
+        if (isThrottled) return; // Exit if function is already running
         if (roundsPlayed < maxRounds) {
+            isThrottled = true; // Set flag to indicate throttling
+
+            btn.classList.add("active-btn");
+
             let computerChoice = getComputerChoice();
+
+            let computerChoiceWrapper = document.getElementById(`computer-choice-${computerChoice}`);
+            computerChoiceWrapper.classList.remove("hide");
+
             let humanChoice = btn.id;
+
             playRound(computerChoice, humanChoice);
+            setTimeout(function() {
+                isThrottled = false; // reset after the round is played
+                btn.classList.remove("active-btn");
+                computerChoiceWrapper.classList.add("hide");
+            }, 1000);
+
         } else {
             alert("No more rounds! Please restart the game.");
         }
@@ -39,52 +58,82 @@ buttons.forEach((btn) => {
 function playRound(computerChoice, humanChoice) {
     roundsPlayed++;
 
+    // assigns human and computer scores on the table to variables based on round number
+    const humanScoreTable = document.getElementById(`human_round${[roundsPlayed]}`);
+    const computerScoreTable = document.getElementById(`computer_round${[roundsPlayed]}`);
+    const tieScoreTable = document.getElementById(`tie_round${[roundsPlayed]}`);
+
+    const iconForHuman = document.createElement("img");
+    iconForHuman.className = "table-icon"
+    iconForHuman.src = `./${humanChoice}.svg`;
+    humanScoreTable.appendChild(iconForHuman);
+
+    const iconForComputer = document.createElement("img");
+    iconForComputer.className = "table-icon"
+    iconForComputer.src = `./${computerChoice}.svg`;
+    computerScoreTable.appendChild(iconForComputer);
+
+    const iconForTie = document.createElement("img");
+    iconForTie.className = "table-icon";
+    iconForTie.src = "./tie.svg";
+
     if (computerChoice === humanChoice) {  
         ties++
-        resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Tie"
+        tieScoreTable.appendChild(iconForTie);
+        iconForTie.classList.add("tie");
     } else if (computerChoice === "rock") {
         if (humanChoice === "paper") {
             humanScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+            iconForHuman.classList.add("win");
+            iconForComputer.classList.add("loss");
         } else if (humanChoice === "scissors") {
             computerScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+            iconForHuman.classList.add("loss");
+            iconForComputer.classList.add("win");
         } 
     } else if (computerChoice === "paper") {
         if (humanChoice === "scissors") {
             humanScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+            iconForHuman.classList.add("win");
+            iconForComputer.classList.add("loss");
         } else if (humanChoice === "rock") {
             computerScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+            iconForHuman.classList.add("loss");
+            iconForComputer.classList.add("win");
         }
     } else {
         if (humanChoice === "rock") {
             humanScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Human wins";
+            iconForHuman.classList.add("win");
+            iconForComputer.classList.add("loss");
         } else if (humanChoice === "paper") {
             computerScore++
-            resultText = "The computer chose " + computerChoice + " and the human chose " + humanChoice + ". The result is: Computer wins";
+            iconForHuman.classList.add("loss");
+            iconForComputer.classList.add("win");
         }
-    }
-
-    // Updates results list
-    const resultsList = document.getElementById("results-list");
-    resultsList.appendChild(document.createElement("li"));
-    let resultItem = resultsList.lastChild;
-    resultItem.textContent = resultText;
-    
-    document.getElementById("human-score").textContent = `Human score: ${humanScore}`; // Updates scores for human
-    document.getElementById("computer-score").textContent = `Computer score: ${computerScore}`; // Updates scores for computer
-    const tiesPara = document.getElementById("tie").textContent = `Ties: ${ties}`; // Updates scores for ties
-
-    // Check if the maximum rounds have been played
-    if (roundsPlayed === maxRounds) {
-        setTimeout(() => {
-            alert(`Game over! Final scores - Human: ${humanScore}, Computer: ${computerScore}, Ties: ${ties}`);
-        }, 100);
     };
+
+    // Provides final result
+    if (roundsPlayed === 5) {
+        const finalResult = document.getElementById("final-result");
+        if (humanScore > computerScore) {
+            finalResult.appendChild(document.createElement("h2")).textContent = "Human wins!";
+        } else if (computerScore > humanScore) {
+            finalResult.appendChild(document.createElement("h2")).textContent = "Computer wins!";
+        } else {
+            finalResult.appendChild(document.createElement("h2")).textContent = "It's a tie!";
+        }
+        document.getElementById("versus").style.display = "none";
+        document.getElementById("reset-btn").style.display = "";
+    };
+
+    // Updates total scores
+    document.getElementById("human-score").textContent = humanScore;
+    document.getElementById("computer-score").textContent = computerScore;
+    document.getElementById("tie").textContent = ties;
+
 };
+
 
 // Reset game function
 function resetGame() {
@@ -93,14 +142,21 @@ function resetGame() {
     ties = 0;
     roundsPlayed = 0;
 
-    // Clear results list
-    const resultsList = document.getElementById("results-list");
-    resultsList.textContent = "";
+    // Clear table
+    document.querySelectorAll(".table-icon").forEach(img => {
+        img.remove();
+    });
 
-    // Update scores display
-    document.getElementById("human-score").textContent = `Human score: ${humanScore}`;
-    document.getElementById("computer-score").textContent = `Computer score: ${computerScore}`;
-    document.getElementById("tie").textContent = `Ties: ${ties}`;
+    document.getElementById("reset-btn").style.display = "none";
+    document.getElementById("versus").style.display = "";
+
+    const finalResult = document.getElementById("final-result");
+    finalResult.removeChild(finalResult.querySelector("h2"));
+
+    // Return scores to 0
+    document.getElementById("human-score").textContent = humanScore;
+    document.getElementById("computer-score").textContent = computerScore;
+    document.getElementById("tie").textContent = ties;
 };
 
 const resetBtn = document.getElementById("reset-btn");

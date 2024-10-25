@@ -1,0 +1,125 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    </style>
+    <link rel="stylesheet" type="text/css" href="rock-paper-scissors.css">
+    <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1>Rock, Paper, Scissors</h1>
+            <p>You have 5 rounds. See if you can beat the computer!</p>
+        </div>
+
+        <div class="grid-wrapper">
+
+            <div class="player">
+                <h2>YOU</h2>
+            </div>
+            <div class="player no-bg"></div>
+            <div class="player">
+                <h2>COMPUTER</h2>
+            </div>
+            
+            <div id="human">
+                <button class="btn" id="rock">
+                    Rock
+                    <img class="icon" src="./rock.svg" alt="icon representing rock gesture">
+                </button>
+                <button class="btn" id="paper">
+                    Paper
+                    <img class="icon" src="./paper.svg" alt="icon representing paper gesture">
+                </button>
+                <button class="btn" id="scissors">
+                    Scissors
+                    <img class="icon" src="./scissors.svg" alt="icon representing scissors gesture">
+                </button>
+            </div>
+
+            <div id="between">
+
+                <div id="versus">
+                    X
+                </div>
+
+                <button id="reset-btn">Reset game</button>
+                
+            </div>
+
+            <div id="computer">
+                <div id="computer-choice">
+                    
+                    <div id="computer-choice-rock" class="computer-choice-wrapper hide">
+                        <img class="computer-choice-icon" src="./rock.svg" alt="icon representing rock gesture">
+                        <p>Rock</p>
+                    </div>
+
+                    <div id="computer-choice-paper" class="computer-choice-wrapper hide">
+                        <img class="computer-choice-icon" src="./paper.svg" alt="icon representing paper gesture">
+                        <p>Paper</p>
+                    </div>
+
+                    <div id="computer-choice-scissors" class="computer-choice-wrapper hide">
+                        <img class="computer-choice-icon" src="./scissors.svg" alt="icon representing scissors gesture">
+                        <p>Scissors</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="results">
+
+                <div id="final-result"></div>
+
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Round 1</th>
+                        <th>Round 2</th>
+                        <th>Round 3</th>
+                        <th>Round 4</th>
+                        <th>Round 5</th>
+                        <th>TOTAL</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">You</td>
+                        <td id="human_round1"></td>
+                        <td id="human_round2"></td>
+                        <td id="human_round3"></td>
+                        <td id="human_round4"></td>
+                        <td id="human_round5"></td>
+                        <td id="human-score"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Computer</td>
+                        <td id="computer_round1"></td>
+                        <td id="computer_round2"></td>
+                        <td id="computer_round3"></td>
+                        <td id="computer_round4"></td>
+                        <td id="computer_round5"></td>
+                        <td id="computer-score"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Ties</td>
+                        <td id="tie_round1"></td>
+                        <td id="tie_round2"></td>
+                        <td id="tie_round3"></td>
+                        <td id="tie_round4"></td>
+                        <td id="tie_round5"></td>
+                        <td id="tie"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script async src="rock-paper-scissors.js"></script>
+
+</body>
+</html>

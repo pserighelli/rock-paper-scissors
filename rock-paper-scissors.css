@@ -1,0 +1,278 @@
+body {
+    background-color: #4F3A4B;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #E75152;
+    margin: auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    max-width: 60rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.heading {
+    margin-bottom: 4rem;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 6rem;
+    text-transform: uppercase;
+    margin: 0px;
+}
+
+.heading p {
+    text-align: center;
+    color: #ffffffaf;
+    margin: 0px;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    color: #FFF;
+    font-size: 2rem;
+    margin: 0px;
+}
+
+.player {
+    margin: 0rem auto;
+    padding: 0.5rem 2.5rem;
+    background-color: #E75152;
+    width: fit-content;
+    border-radius: 0.5rem 0.5rem 0rem 0rem;
+}
+
+.player h2 {
+    font-size: 1.5rem;
+}
+
+.player.no-bg {
+    background-color: transparent;
+}
+
+#human {
+    background-color: #0000001f;
+    padding: 2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    row-gap: 1.5rem;
+    box-shadow: inset 0px 0px 0.5rem #00000050;
+}
+
+.btn img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.btn {
+    background-color: #00000050;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: "Anton", sans-serif;
+    text-transform: uppercase;
+    color: #FFF;
+    box-shadow: 0px 0px 0.5rem #00000033;
+    border: none;
+    padding: 2rem 1rem 2rem 1rem;
+}
+
+.active-btn {
+    background-color: #E75152;
+    color: #4F3A4B;
+}
+
+.active-btn img {
+    filter: invert(21%) sepia(28%) saturate(448%) hue-rotate(260deg) brightness(99%) contrast(90%);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #E75152;
+    color: #4F3A4B;
+}
+
+.btn:hover img {
+    filter: invert(21%) sepia(28%) saturate(448%) hue-rotate(260deg) brightness(99%) contrast(90%);
+}
+
+#between {
+    width: 70%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: auto;
+}
+
+#versus {
+    color: #FFF;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Anton", sans-serif;
+    font-size: 4rem;
+}
+
+#reset-btn {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    border-radius: 50vw;
+    border: 2px solid #E75152;
+    padding: 0.5rem;
+    color: #FFF;
+    font-family: "Anton", sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 1rem #E75152;
+}
+
+#reset-btn:hover {
+    background-color: #E75152;
+    color: #000;
+}
+
+#computer {
+    background-color: #0000001f;
+    padding: 2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: inset 0px 0px 0.5rem #00000050;
+}
+
+#computer-choice {
+    background-color: #00000050;
+    height: 100%;
+    border-radius: 0.5rem;
+}
+
+.computer-choice-wrapper {
+    background-color: #E75152;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.computer-choice-wrapper > p {
+    color: #4F3A4B;
+    font-family: "Anton", sans-serif;
+    font-size: 2rem;
+    margin: 0px;
+}
+
+.computer-choice-wrapper.hide {
+    display: none;
+}
+
+.computer-choice-icon {
+    width: 30%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    filter: invert(21%) sepia(28%) saturate(448%) hue-rotate(260deg) brightness(99%) contrast(90%);
+}
+
+.icon {
+    height: 3rem;
+    width: 3rem;
+    filter: invert(21%) sepia(28%) saturate(448%) hue-rotate(260deg) brightness(99%) contrast(90%);
+}
+
+.results {
+    grid-column: 1 / span 3;
+    padding-top: 1rem;
+}
+
+#final-result {
+    margin: 2rem auto 2rem auto;
+    height: 5rem;
+}
+
+#final-result > h2 {
+    background-color: #E75152;
+    width: fit-content;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    margin: auto;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 0.5rem #00000050;
+}
+
+table {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 0.5rem;
+}
+
+td > * {
+    margin: auto;
+}
+
+td {
+    height: 2rem;
+    border-top: 1px solid #E75152;
+    border-bottom: 1px solid #E75152;
+}
+
+.table-icon {
+    height: 2rem;
+    width: 2rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.win {
+    border-radius: 50%;
+    background-color: #05ce0f;
+    filter: none;
+}
+
+.loss {
+    border-radius: 50%;
+    background-color: #ce0505;
+    filter: none;
+}
+
+.tie {
+    border-radius: 50%;
+    background-color: #cec105;
+    filter: none;
+}
