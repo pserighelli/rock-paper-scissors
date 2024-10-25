@@ -65,17 +65,17 @@ function playRound(computerChoice, humanChoice) {
 
     const iconForHuman = document.createElement("img");
     iconForHuman.className = "table-icon"
-    iconForHuman.src = `./${humanChoice}.svg`;
+    iconForHuman.src = `./assets/${humanChoice}.svg`;
     humanScoreTable.appendChild(iconForHuman);
 
     const iconForComputer = document.createElement("img");
     iconForComputer.className = "table-icon"
-    iconForComputer.src = `./${computerChoice}.svg`;
+    iconForComputer.src = `./assets/${computerChoice}.svg`;
     computerScoreTable.appendChild(iconForComputer);
 
     const iconForTie = document.createElement("img");
     iconForTie.className = "table-icon";
-    iconForTie.src = "./tie.svg";
+    iconForTie.src = "./assets/tie.svg";
 
     if (computerChoice === humanChoice) {  
         ties++
