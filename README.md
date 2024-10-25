@@ -1,1 +1,1 @@
-Rock, Paper, Scissors in the browser console -- project from The Odin Project.
+Rock, Paper, Scissors project from The Odin Project.
